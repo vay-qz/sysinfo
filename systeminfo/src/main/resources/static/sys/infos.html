@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Systeminfo</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</head>
+<style type="text/css">
+    .header {
+        width: 100%;
+        background-color: #0064b9;
+    }
+
+    .header:after {
+        content: "";
+        clear: both;
+        display: block;
+    }
+
+    .logo {
+        float: left;
+        color: #fff;
+        display: block;
+        padding: 20px;
+    }
+
+    .button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        width: 24.5%;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 8px;
+    }
+
+    .button:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    }
+
+    .content {
+        margin: 30px;
+        border: solid 2px #000;
+        width: 92%;
+        padding: 0px 20px 20px 20px;
+    }
+
+    .title {
+        background-color: #0064b9;
+        width: 380px;
+        height: 26px;
+        position: relative;
+        top: -17px;
+        left: 0px;
+        color: #fff;
+        font-weight: bold;
+        padding: 5px 0px 0px 10px;
+        border: solid 1px #000;
+    }
+
+    .download {
+        float: right;
+        color: #f4f;
+        display: block;
+        padding: 15px;
+    }
+    .download:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    }
+</style>
+<body>
+    <div id="app">
+        <div class="header">
+            <div class="logo">
+                <h1>系统信息</h1>
+            </div>
+            <div >
+                <button class="download" @click="download()">下载</button>
+            </div>
+        </div>
+        <button id="application" class="button" @click="applicationinfo()">application</button>
+        <button id="net" class="button" @click="netinfo()">network</button>
+        <button id="os" class="button" @click="osinfo()">os</button>
+        <button id="spring" class="button" @click="springinfo()">spring</button>
+
+        <div class="content" v-for = "(value, name) in message">
+            <div class="title">
+                {{ name }}
+            </div>
+            <ul>
+                <li v-for="(value, name) in value">
+                    <div v-if="typeof value === 'object'">
+                        <div>{{name}}</div>
+                        <ul>
+                            <li v-for="(val, key) in value">
+                                {{ key }} : {{ val }}
+                            </li>
+                        </ul>
+                    </div>
+                    <div v-else>
+                        {{ name }} : {{ value }}
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+<script>
+
+    var vue = new Vue({
+        el: '#app',
+        data: {
+            message: {
+                "application": ["JVM相关信息"],
+                "network": ["网络相关信息"],
+                "os": ["服务器（虚拟机相关信息）"],
+                "spring": ["spring注入类相关信息"]
+            }
+        },
+        methods: {
+            applicationinfo: function () {
+                var _this = this;
+                axios.get('application-info')
+                    .then(function (value) {
+                        _this.message = value.data;
+                    })
+            },
+            netinfo: function () {
+                var _this = this;
+                axios.get('net-info')
+                    .then(function (value) {
+                        _this.message = value.data;
+                    })
+            },
+            osinfo: function () {
+                var _this = this;
+                axios.get('os-info')
+                    .then(function (value) {
+                        _this.message = value.data;
+                    })
+            },
+            springinfo: function () {
+                var _this = this;
+                axios.get('spring-info/pool/db')
+                    .then(function (value) {
+                        _this.message = value.data;
+                    })
+            },
+            download: function () {
+                let a = document.createElement('a');
+                a.href = "download";
+                a.click();
+            }
+        }
+    });
+</script>
+</body>
+</html>
