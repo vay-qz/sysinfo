@@ -23,9 +23,29 @@
 - 上述信息一键下载
 - springboot-actuator
 
+
+
 ## 支持工程类型
 
 - SpringBoot
+
+
+
+## 集成方式
+
+源码打包集成，后续考虑上传到maven公有仓库
+
+```shell
+# 下载源码
+git clone https://github.com/vay-qz/sysinfo.git
+
+#在pom文件所在目录打包
+mvn clean package
+
+#引入target中打好的包
+```
+
+
 
 ## 相关配置
 
@@ -39,6 +59,15 @@ spring.datasource.url=jdbc:mysql://ip:port/applicationName
 spring.datasource.username=username
 spring.datasource.password=password
 ```
+
+
+
+## 访问路径
+
+- http://ip:port/sys/infos.html
+- actuator原生访问方式
+
+
 
 ## 过滤设置
 
