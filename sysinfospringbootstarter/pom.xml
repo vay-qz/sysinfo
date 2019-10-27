@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>pers.vay</groupId>
+    <artifactId>sysinfo-spring-boot-starter</artifactId>
+    <version>1.0.0-RELEASE</version>
+    <packaging>jar</packaging>
+
+    <developers>
+        <developer>
+            <id>vay</id>
+            <name>Qiao Zhe</name>
+            <email>qiaozhe@thunisoft.com</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>+8</timezone>
+            <properties>
+                <url>https://vay-qz.github.io/blog/</url>
+                <githubUrl>https://github.com/vay-qz</githubUrl>
+            </properties>
+        </developer>
+    </developers>
+
+    <distributionManagement>
+        <repository>
+            <id>public-repo</id>
+            <url>http://repo.thunisoft.com/maven2/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>public-snapshots</id>
+            <url>http://repo.thunisoft.com/maven2/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+    <repositories>
+        <repository>
+            <id>nexus-releases</id>
+            <url>http://repo.thunisoft.com/maven2/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>nexus-snapshots</id>
+            <url>http://repo.thunisoft.com/maven2/content/groups/public-snapshots/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>pers.vay</groupId>
+            <artifactId>sysinfos</artifactId>
+            <version>1.0.0-RELEASE</version>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies> <!-- The parent should provide all that -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>2.1.8.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source> <!--指明源码用的Jdk版本-->
+                    <target>1.8</target> <!--指明打包后的Jdk版本-->
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
